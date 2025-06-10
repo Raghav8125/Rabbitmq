@@ -160,3 +160,29 @@ kubectl get secret -n rabbitmq-system rabbitmqcluster-prod-default-user -o jsonp
 
 
 
+ 
+
+
+### RabbitMQ Application Testing
+
+Prerequisite:
+
+1.RabbitMQ is deployed and accessible in your Kubernetes cluster.
+
+2. You have the RabbitMQ service name (mycase: rabbitmqcluster-prod.default.svc.cluster.local).
+
+3. Python 3 image or container is available (you can use python:3.9).
+
+4. pika installed inside the application container.
+
+
+1. Create a configmap
+   
+   kubectl apply -f  rabbitmq-test-cm.yaml
+   
+2. craete a pod
+
+   kubectl apply -f rabbitmq-test-pod.yaml
+
+
+
