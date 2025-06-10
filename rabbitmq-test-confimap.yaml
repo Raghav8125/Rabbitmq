@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rabbitmq-test-scripts
+data:
+  producer.py: |
+    import pika
+
+    rabbitmq_host = 'rabbitmqcluster-prod.default.svc.cluster.local'
+    queue_name = 'sample_queue'
+
+    # Set correct username and password
+    credentials = pika.PlainCredentials('admin', 'mypass')  # Change accordingly
+
+    connection = pika.BlockingConnection(
+        pika.ConnectionParameters(host=rabbitmq_host, credentials=credentials)
+    )
+    channel = connection.channel()
+
+    channel.queue_declare(queue=queue_name)
+    channel.basic_publish(exchange='', routing_key=queue_name, body='Hello this Raghav, how are you!')
+
+    print(" [x] Sent 'Hello from Producer!!!'")
+    connection.close()
+
+  consumer.py: |
+    import pika
+
+    rabbitmq_host = 'rabbitmqcluster-prod.default.svc.cluster.local'
+    queue_name = 'sample_queue'
+
+    # Set correct username and password
+    credentials = pika.PlainCredentials('admin', 'mypass')  # Change accordingly
+
+    connection = pika.BlockingConnection(
+        pika.ConnectionParameters(host=rabbitmq_host, credentials=credentials)
+    )
+    channel = connection.channel()
+
+    channel.queue_declare(queue=queue_name)
+
+    def callback(ch, method, properties, body):
+        print(f" [x] Received {body.decode()}")
+
+    channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)
+
+    print(' [*] Waiting for messages. To exit press CTRL+C')
+    channel.start_consuming()
