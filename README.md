@@ -124,6 +124,7 @@ kubectl get all -n rabbitmq-system
 | statefulset.apps/rabbitmqcluster-prod-server           | 3/3                 | True                | 5d22h       |
 
 ```
+
 ### 7. Access the RabbitMQ Management Console
 To access the RabbitMQ management console externally (using NodePort), get the service details:
 
