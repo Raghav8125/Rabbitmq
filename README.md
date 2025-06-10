@@ -165,6 +165,8 @@ kubectl get secret -n rabbitmq-system rabbitmqcluster-prod-default-user -o jsonp
 
 ### RabbitMQ Application Testing
 
+This project provides a minimal example of how to test a RabbitMQ instance deployed on a Kubernetes cluster using a simple Python-based producer and consumer.
+
 Prerequisite:
 
 1.RabbitMQ is deployed and accessible in your Kubernetes cluster.
@@ -174,15 +176,61 @@ Prerequisite:
 3. Python 3 image or container is available (you can use python:3.9).
 
 4. pika installed inside the application container.
+   
+
+producer.py: Sends a simple message to a RabbitMQ queue.
+
+consumer.py: Listens to the queue and prints received messages.
+
+Kubernetes manifests to run the producer and consumer as pods.
+
+ConfigMap used to inject Python scripts into the pods.
 
 
-1. Create a configmap
+1. Create a configmap 
    
-   kubectl apply -f  rabbitmq-test-cm.yaml
+   kubectl apply -f  rabbitmq-test-configmap.yaml
+
    
-2. craete a pod
+   
+3. craete a pod
 
    kubectl apply -f rabbitmq-test-pod.yaml
+
+
+   | **Pod Name**  | **Ready** | **Status** | **Restarts** | **Age** |
+| ------------- | --------- | ---------- | ------------ | ------- |
+| rabbitmq-test | 1/1       | Running    | 0            | 48m     |
+
+
+Run producer and consumer scripts inside the pods
+
+producer.py:
+
+Sends a message "Hello this is Raghav, how are you" to the hello queue.
+
+![image](https://github.com/user-attachments/assets/e83ef9ef-192e-42b1-911e-d9f63336082c)
+
+Now lets check it in rabbitmq queue with message
+
+
+![image](https://github.com/user-attachments/assets/030a0e46-0374-4f54-8d2a-e485040b28d9)
+
+lets run consumer script inside the pod
+
+consumer.py
+
+Listens on the hello queue and prints any received messages.
+
+![image](https://github.com/user-attachments/assets/5a0b59d2-9786-4199-9f84-513b570829c4)
+
+Check in the rabbitmq GUI whether the queue is consumed or not
+
+![image](https://github.com/user-attachments/assets/159d66cf-6ee7-4318-95c5-d629b510df00)
+
+we can see queue is empty now
+
+
 
 
 
