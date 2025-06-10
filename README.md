@@ -200,7 +200,6 @@ ConfigMap used to inject Python scripts into the pods.
 
 | **Pod Name**  | **Ready** | **Status** | **Restarts** | **Age** |
 | ------------- | --------- | ---------- | ------------ | ------- |
-
 | rabbitmq-test | 1/1       | Running    | 0            | 48m     |
 
 
