@@ -230,6 +230,8 @@ Check in the rabbitmq GUI whether the queue is consumed or not
 
 we can see queue is empty now
 
+## Successfully we have Tested our Appplication in RabbitMQ !!!!!!!!
+
 
 
 
