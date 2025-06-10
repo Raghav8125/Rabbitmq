@@ -198,8 +198,9 @@ ConfigMap used to inject Python scripts into the pods.
    kubectl apply -f rabbitmq-test-pod.yaml
 
 
-   | **Pod Name**  | **Ready** | **Status** | **Restarts** | **Age** |
+| **Pod Name**  | **Ready** | **Status** | **Restarts** | **Age** |
 | ------------- | --------- | ---------- | ------------ | ------- |
+
 | rabbitmq-test | 1/1       | Running    | 0            | 48m     |
 
 
